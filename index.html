@@ -7,57 +7,127 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
-        .glass-card { background: #ffffff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04); }
-        .gradient-text { background: linear-gradient(135deg, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        input:focus, textarea:focus, select:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            /* Темный фон для Glassmorphism */
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: white;
+            /* Затемняющая маска для читаемости текста */
+            box-shadow: inset 0 0 0 2000px rgba(10, 15, 30, 0.85);
+        }
+        
+        /* Класс для стеклянных карточек */
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Класс для полей ввода */
+        .glass-input {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus {
+            border-color: #818cf8;
+            background: rgba(0, 0, 0, 0.6);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.15);
+        }
+        .glass-input::placeholder {
+            color: #94a3b8;
+        }
+
+        /* Выпадающий список в темной теме */
+        select option {
+            background-color: #1e293b;
+            color: white;
+        }
+
+        .gradient-text { 
+            background: linear-gradient(135deg, #a5b4fc, #c084fc); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        .video-container { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            overflow: hidden; 
+            border-radius: 1rem; 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* Анимация пульса */
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #22c55e;
+            animation: pulse-animation 2s infinite;
+        }
+        @keyframes pulse-animation {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
     </style>
 </head>
-<body class="text-gray-900 antialiased selection:bg-blue-200">
+<body class="antialiased selection:bg-indigo-500/30">
 
-    <!-- Навигация -->
-    <nav class="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 transition-all">
+    <nav class="fixed w-full bg-black/20 backdrop-blur-lg z-50 border-b border-white/10 transition-all">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="text-2xl font-extrabold tracking-tight text-gray-900">Помощник<span class="text-blue-600">.kz</span></div>
+                <div class="text-2xl font-extrabold tracking-tight text-white">Помощник<span class="text-indigo-400">.kz</span></div>
                 <div class="flex items-center gap-4">
-                    <div class="hidden sm:block text-sm font-bold text-blue-800 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">📍 Астана</div>
-                    <!-- Добавлено hidden sm:flex, чтобы скрыть кнопку на смартфонах -->
-                    <a href="#order-section" class="hidden sm:flex bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">Вызвать помощника</a>
+                    <div class="hidden sm:block text-sm font-bold text-indigo-300 bg-white/10 px-3 py-1.5 rounded-full border border-white/10">📍 Астана</div>
+                    <a href="#order-section" class="hidden sm:flex bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors shadow-lg shadow-indigo-500/30">Вызвать помощника</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Главный экран -->
     <section class="pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="text-center lg:text-left">
-                    <div class="inline-block bg-blue-100 text-blue-700 text-sm font-bold px-4 py-1.5 rounded-full mb-6 border border-blue-200">
-                        🔥 Первый вызов со скидкой 10%
+                    
+                    <div class="inline-flex items-center bg-white/10 border border-white/20 text-indigo-200 text-sm font-bold px-4 py-1.5 rounded-full mb-6 backdrop-blur-md">
+                        <div class="pulse"></div>
+                        14 мастеров онлайн в Астане
                     </div>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-gray-900 leading-tight">
+
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-white leading-tight">
                         Опишите проблему — мы найдём <span class="gradient-text">кто её решит</span>
                     </h1>
-                    <p class="text-lg md:text-xl text-gray-600 mb-8 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                    <p class="text-lg md:text-xl text-gray-300 mb-8 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0">
                         От мелкого ремонта до похода в аптеку. Не нужно обзванивать мастеров — мы сами подберем проверенного исполнителя за 10 минут.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#order-section" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5 text-center">
+                        <a href="#order-section" class="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg shadow-indigo-500/30 transition-all transform hover:-translate-y-0.5 text-center">
                             Оставить заявку
                         </a>
-                        <a href="#how-it-works" class="bg-white hover:bg-gray-50 text-gray-800 border-2 border-gray-200 font-bold text-lg py-4 px-8 rounded-xl transition-colors text-center">
+                        <a href="#how-it-works" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-lg py-4 px-8 rounded-xl transition-colors text-center backdrop-blur-sm">
                             Как это работает?
                         </a>
                     </div>
                 </div>
                 
-                <!-- Блок для видео (Плашка удалена, YouTube встроен) -->
                 <div class="relative w-full max-w-lg mx-auto lg:max-w-none">
-                    <div class="video-container bg-gray-900">
+                    <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/Wx6eYu65gsY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
@@ -65,185 +135,197 @@
         </div>
     </section>
 
-    <!-- Как это работает -->
-    <section id="how-it-works" class="py-16 bg-white border-y border-gray-100">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="how-it-works" class="py-16 border-y border-white/10 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Как работает Помощник.kz</h2>
-                <p class="text-lg text-gray-600 font-medium">Решаем ваши задачи в 3 простых шага</p>
+                <h2 class="text-3xl font-extrabold text-white mb-4">Как работает Помощник.kz</h2>
+                <p class="text-lg text-indigo-200 font-medium">Решаем ваши задачи в 3 простых шага</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-                <div class="text-center p-6 rounded-2xl bg-gray-50 border border-gray-100">
-                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6">1</div>
-                    <h3 class="text-xl font-bold mb-3">Опишите задачу</h3>
-                    <p class="text-gray-600 font-medium text-sm">Своими словами расскажите, что нужно сделать, когда и где. Не нужно искать нужную категорию в сложных каталогах.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-2xl glass-card">
+                    <div class="w-14 h-14 bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6">1</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Опишите задачу</h3>
+                    <p class="text-gray-400 font-medium text-sm">Своими словами расскажите, что нужно сделать, когда и где. Не нужно искать нужную категорию в сложных каталогах.</p>
                 </div>
-                <div class="text-center p-6 rounded-2xl bg-gray-50 border border-gray-100">
-                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6">2</div>
-                    <h3 class="text-xl font-bold mb-3">Мы подберем человека</h3>
-                    <p class="text-gray-600 font-medium text-sm">Наш диспетчер найдет свободного исполнителя с хорошим рейтингом и свяжется с вами в WhatsApp для подтверждения.</p>
+                <div class="text-center p-6 rounded-2xl glass-card">
+                    <div class="w-14 h-14 bg-purple-500/20 border border-purple-500/30 text-purple-400 rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6">2</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Мы подберем человека</h3>
+                    <p class="text-gray-400 font-medium text-sm">Наш диспетчер найдет свободного исполнителя с хорошим рейтингом и свяжется с вами в WhatsApp для подтверждения.</p>
                 </div>
-                <div class="text-center p-6 rounded-2xl bg-gray-50 border border-gray-100">
-                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6">3</div>
-                    <h3 class="text-xl font-bold mb-3">Принимайте работу</h3>
-                    <p class="text-gray-600 font-medium text-sm">Помощник приезжает и решает проблему. Вы оплачиваете работу напрямую после успешного завершения.</p>
+                <div class="text-center p-6 rounded-2xl glass-card">
+                    <div class="w-14 h-14 bg-green-500/20 border border-green-500/30 text-green-400 rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6">3</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Принимайте работу</h3>
+                    <p class="text-gray-400 font-medium text-sm">Помощник приезжает и решает проблему. Вы оплачиваете работу напрямую после успешного завершения.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Что мы умеем (Категории) -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-16 relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-extrabold text-gray-900 mb-4">С чем мы помогаем каждый день</h2>
-                <p class="text-lg text-gray-600 font-medium">Если вашей задачи нет в списке — просто напишите нам, мы что-нибудь придумаем!</p>
+                <h2 class="text-3xl font-extrabold text-white mb-4">С чем мы помогаем каждый день</h2>
+                <p class="text-lg text-indigo-200 font-medium">Если вашей задачи нет в списке — просто напишите нам, мы что-нибудь придумаем!</p>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                    <div class="text-4xl mb-4">🛠</div>
-                    <h3 class="font-bold text-lg mb-2">Дом и быт</h3>
-                    <ul class="text-sm text-gray-600 space-y-2 font-medium">
+                <div class="glass-card p-6 rounded-2xl transition-transform hover:-translate-y-1">
+                    <div class="mb-4 text-indigo-400">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-white">Дом и быт</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 font-medium">
                         <li>• Мелкий ремонт</li>
                         <li>• Сборка мебели</li>
                         <li>• Услуги сантехника</li>
-                        <li>• Повесить телевизор/зеркало</li>
+                        <li>• Повесить телевизор</li>
                     </ul>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                    <div class="text-4xl mb-4">🚗</div>
-                    <h3 class="font-bold text-lg mb-2">Авто</h3>
-                    <ul class="text-sm text-gray-600 space-y-2 font-medium">
+
+                <div class="glass-card p-6 rounded-2xl transition-transform hover:-translate-y-1">
+                    <div class="mb-4 text-purple-400">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-white">Авто</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 font-medium">
                         <li>• Прикурить аккумулятор</li>
                         <li>• Помощь на дороге</li>
                         <li>• Замена колеса</li>
                         <li>• Доставка бензина</li>
                     </ul>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                    <div class="text-4xl mb-4">🛒</div>
-                    <h3 class="font-bold text-lg mb-2">Поручения</h3>
-                    <ul class="text-sm text-gray-600 space-y-2 font-medium">
-                        <li>• Купить и привезти продукты</li>
+
+                <div class="glass-card p-6 rounded-2xl transition-transform hover:-translate-y-1">
+                    <div class="mb-4 text-green-400">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-white">Поручения</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 font-medium">
+                        <li>• Привезти продукты</li>
                         <li>• Доставка лекарств</li>
-                        <li>• Забрать посылку/документы</li>
+                        <li>• Забрать посылку</li>
                         <li>• Отстоять в очереди</li>
                     </ul>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                    <div class="text-4xl mb-4">📦</div>
-                    <h3 class="font-bold text-lg mb-2">Переезды</h3>
-                    <ul class="text-sm text-gray-600 space-y-2 font-medium">
+
+                <div class="glass-card p-6 rounded-2xl transition-transform hover:-translate-y-1">
+                    <div class="mb-4 text-pink-400">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-white">Переезды</h3>
+                    <ul class="text-sm text-gray-400 space-y-2 font-medium">
                         <li>• Услуги грузчиков</li>
                         <li>• Перестановка мебели</li>
                         <li>• Упаковка вещей</li>
-                        <li>• Вынос строительного мусора</li>
+                        <li>• Вынос мусора</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Секция с формой и преимуществами -->
-    <section id="order-section" class="py-16 bg-white">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="order-section" class="py-16 border-t border-white/10 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 
-                <!-- Левая колонка: Преимущества (Доверие) -->
                 <div class="lg:col-span-5 space-y-8 flex flex-col justify-center">
                     <div>
-                        <h2 class="text-3xl font-extrabold text-gray-900 mb-6 leading-tight">Безопасность и качество — наш приоритет</h2>
-                        <p class="text-gray-600 font-medium mb-8">Мы не просто передаем ваш номер первому встречному. Мы строим сервис, которому можно доверять ключи от квартиры.</p>
+                        <h2 class="text-3xl font-extrabold text-white mb-6 leading-tight">Безопасность и качество — наш приоритет</h2>
+                        <p class="text-gray-300 font-medium mb-8">Мы не просто передаем ваш номер первому встречному. Мы строим сервис, которому можно доверять ключи от квартиры.</p>
                     </div>
 
                     <div class="space-y-6">
                         <div class="flex items-start space-x-4">
-                            <div class="bg-blue-100 p-3 rounded-xl text-blue-700 text-xl border border-blue-200 shrink-0">🛡️</div>
+                            <div class="bg-indigo-500/20 p-3 rounded-xl border border-indigo-500/30 shrink-0 text-indigo-400">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
                             <div>
-                                <h3 class="font-bold text-gray-900 text-lg mb-1">Строгий отбор исполнителей</h3>
-                                <p class="text-sm text-gray-600 font-medium">Каждый помощник проходит собеседование и предоставляет удостоверение личности. Мы знаем, кто к вам приедет.</p>
+                                <h3 class="font-bold text-white text-lg mb-1">Строгий отбор</h3>
+                                <p class="text-sm text-gray-400 font-medium">Каждый помощник проходит собеседование и предоставляет удостоверение личности.</p>
                             </div>
                         </div>
+
                         <div class="flex items-start space-x-4">
-                            <div class="bg-purple-100 p-3 rounded-xl text-purple-700 text-xl border border-purple-200 shrink-0">⏱️</div>
+                            <div class="bg-purple-500/20 p-3 rounded-xl border border-purple-500/30 shrink-0 text-purple-400">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
                             <div>
-                                <h3 class="font-bold text-gray-900 text-lg mb-1">Экономия вашего времени</h3>
-                                <p class="text-sm text-gray-600 font-medium">Не нужно искать, обзванивать и договариваться. Вы оставляете заявку, мы берем всю организацию на себя.</p>
+                                <h3 class="font-bold text-white text-lg mb-1">Экономия времени</h3>
+                                <p class="text-sm text-gray-400 font-medium">Не нужно искать и договариваться. Вы оставляете заявку, мы берем всё на себя.</p>
                             </div>
                         </div>
+
                         <div class="flex items-start space-x-4">
-                            <div class="bg-green-100 p-3 rounded-xl text-green-700 text-xl border border-green-200 shrink-0">💸</div>
+                            <div class="bg-green-500/20 p-3 rounded-xl border border-green-500/30 shrink-0 text-green-400">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            </div>
                             <div>
-                                <h3 class="font-bold text-gray-900 text-lg mb-1">Справедливые цены</h3>
-                                <p class="text-sm text-gray-600 font-medium">Укажите свой бюджет или попросите нас оценить работу по рынку. Никаких скрытых накруток в процессе.</p>
+                                <h3 class="font-bold text-white text-lg mb-1">Справедливые цены</h3>
+                                <p class="text-sm text-gray-400 font-medium">Укажите свой бюджет или попросите нас оценить работу по рынку. Никаких скрытых накруток.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Правая колонка: Форма -->
                 <div class="lg:col-span-7">
-                    <div class="glass-card rounded-3xl border border-gray-200 p-6 sm:p-8 relative overflow-hidden">
-                        <!-- Декоративный фон формы -->
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50 -z-10 transform translate-x-1/2 -translate-y-1/2"></div>
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
                         
-                        <h2 class="text-2xl font-bold mb-6 text-gray-900 border-b border-gray-100 pb-4">Заполните заявку, это займет 1 минуту</h2>
+                        <h2 class="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-4">Заполните заявку, это займет 1 минуту</h2>
                         
                         <form id="orderForm" class="space-y-5">
                             <div>
-                                <label class="block text-sm font-bold text-gray-800 mb-2">Категория задачи</label>
-                                <select required id="category" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 font-medium transition-all appearance-none cursor-pointer">
+                                <label class="block text-sm font-bold text-indigo-200 mb-2">Категория задачи</label>
+                                <select required id="category" class="w-full glass-input rounded-xl px-4 py-3 font-medium cursor-pointer appearance-none">
                                     <option value="" disabled selected>Выберите категорию...</option>
-                                    <option value="Дом">🛠 Дом (ремонт, мебель, сантехника)</option>
-                                    <option value="Авто">🚗 Авто (помощь на дороге, прикурить)</option>
-                                    <option value="Покупки">🛒 Покупки и поручения (доставка)</option>
-                                    <option value="Переезд">📦 Переезд (упаковка, грузчики)</option>
-                                    <option value="Техника">💻 Техника (настройка, софт)</option>
-                                    <option value="Другое">✨ Другое</option>
+                                    <option value="Дом">Дом (ремонт, мебель, сантехника)</option>
+                                    <option value="Авто">Авто (помощь на дороге, прикурить)</option>
+                                    <option value="Покупки">Покупки и поручения (доставка)</option>
+                                    <option value="Переезд">Переезд (упаковка, грузчики)</option>
+                                    <option value="Техника">Техника (настройка, софт)</option>
+                                    <option value="Другое">Другое</option>
                                 </select>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-gray-800 mb-2">Что нужно сделать?</label>
-                                <textarea required id="description" rows="3" placeholder="Опишите задачу своими словами. Например: Нужно повесить телевизор на бетонную стену..." class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 font-medium transition-all resize-none"></textarea>
+                                <label class="block text-sm font-bold text-indigo-200 mb-2">Что нужно сделать?</label>
+                                <textarea required id="description" rows="3" placeholder="Например: Нужно повесить телевизор на бетонную стену..." class="w-full glass-input rounded-xl px-4 py-3 font-medium resize-none"></textarea>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
-                                    <label class="block text-sm font-bold text-gray-800 mb-2">Адрес в Астане</label>
-                                    <input type="text" id="address" required placeholder="Улица, дом, кв" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 font-medium transition-all">
+                                    <label class="block text-sm font-bold text-indigo-200 mb-2">Адрес в Астане</label>
+                                    <input type="text" id="address" required placeholder="Улица, дом, кв" class="w-full glass-input rounded-xl px-4 py-3 font-medium">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-bold text-gray-800 mb-2">Когда?</label>
-                                    <input type="text" id="datetime" required placeholder="Сегодня вечером / Завтра" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 font-medium transition-all">
+                                    <label class="block text-sm font-bold text-indigo-200 mb-2">Когда?</label>
+                                    <input type="text" id="datetime" required placeholder="Сегодня вечером / Завтра" class="w-full glass-input rounded-xl px-4 py-3 font-medium">
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
-                                    <label class="block text-sm font-bold text-gray-800 mb-2">Бюджет (тенге)</label>
-                                    <input type="text" id="budget" placeholder="Например: 5000 (или 'Не знаю')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 font-medium transition-all">
+                                    <label class="block text-sm font-bold text-indigo-200 mb-2">Бюджет (тенге)</label>
+                                    <input type="text" id="budget" placeholder="Например: 5000 (или 'Не знаю')" class="w-full glass-input rounded-xl px-4 py-3 font-medium">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-bold text-gray-800 mb-2">Ваш номер WhatsApp</label>
-                                    <input type="tel" id="phone" required placeholder="+7 (7XX) XXX-XX-XX" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 font-medium transition-all">
+                                    <label class="block text-sm font-bold text-indigo-200 mb-2">Ваш номер WhatsApp</label>
+                                    <input type="tel" id="phone" required placeholder="+7 (7XX) XXX-XX-XX" class="w-full glass-input rounded-xl px-4 py-3 font-medium">
                                 </div>
                             </div>
 
-                            <div class="flex items-start bg-blue-50/50 p-4 rounded-xl border border-blue-100 mt-2">
-                                <input type="checkbox" id="privacy" required class="mt-1 mr-3 w-5 h-5 rounded border-gray-400 text-blue-600 focus:ring-blue-500 cursor-pointer">
-                                <label for="privacy" class="text-xs text-gray-700 font-medium leading-relaxed cursor-pointer">
+                            <div class="flex items-start bg-indigo-500/10 p-4 rounded-xl border border-indigo-500/20 mt-2">
+                                <input type="checkbox" id="privacy" required class="mt-1 mr-3 w-5 h-5 rounded bg-black/40 border-white/20 text-indigo-500 focus:ring-indigo-500 cursor-pointer">
+                                <label for="privacy" class="text-xs text-gray-300 font-medium leading-relaxed cursor-pointer">
                                     Согласен на обработку персональных данных. Сервис гарантирует конфиденциальность.
                                 </label>
                             </div>
 
-                            <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-lg py-4 px-4 rounded-xl shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5 mt-4">
+                            <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-extrabold text-lg py-4 px-4 rounded-xl shadow-lg shadow-indigo-500/30 transition-all transform hover:-translate-y-0.5 mt-4 border border-white/10">
                                 Найти помощника
                             </button>
                             
-                            <div id="successMessage" class="hidden bg-green-50 text-green-800 border border-green-200 rounded-xl p-4 text-center text-sm font-bold mt-4 shadow-sm">
+                            <div id="successMessage" class="hidden bg-green-500/20 border border-green-500/50 text-green-300 rounded-xl p-4 text-center text-sm font-bold mt-4 shadow-sm backdrop-blur-sm">
                                 ✅ Заявка успешно отправлена! Ожидайте сообщение в WhatsApp в течение 10 минут.
                             </div>
                         </form>
@@ -254,45 +336,41 @@
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="py-16 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center">Частые вопросы</h2>
+    <section class="py-16 border-t border-white/10 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-3xl font-extrabold text-white mb-8 text-center">Частые вопросы</h2>
             <div class="space-y-4">
-                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-                    <h4 class="font-bold text-lg mb-2">Кто ваши исполнители?</h4>
-                    <p class="text-gray-600 text-sm font-medium">Это проверенные мастера и помощники. Перед тем как дать им первый заказ, мы запрашиваем их документы, проводим беседу и собираем отзывы после каждого вызова.</p>
+                <div class="glass-card p-6 rounded-2xl">
+                    <h4 class="font-bold text-lg mb-2 text-white">Кто ваши исполнители?</h4>
+                    <p class="text-gray-400 text-sm font-medium">Это проверенные мастера и помощники. Перед тем как дать им первый заказ, мы запрашиваем их документы, проводим беседу и собираем отзывы после каждого вызова.</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-                    <h4 class="font-bold text-lg mb-2">А если я не знаю сколько стоит работа?</h4>
-                    <p class="text-gray-600 text-sm font-medium">Ничего страшного. В поле "Бюджет" напишите "Не знаю". Наш оператор свяжется с вами, сориентирует по средним рыночным ценам в Астане и предложит варианты.</p>
+                <div class="glass-card p-6 rounded-2xl">
+                    <h4 class="font-bold text-lg mb-2 text-white">А если я не знаю сколько стоит работа?</h4>
+                    <p class="text-gray-400 text-sm font-medium">Ничего страшного. В поле "Бюджет" напишите "Не знаю". Наш оператор свяжется с вами, сориентирует по средним рыночным ценам в Астане и предложит варианты.</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-                    <h4 class="font-bold text-lg mb-2">Как происходит оплата?</h4>
-                    <p class="text-gray-600 text-sm font-medium">Оплата производится напрямую исполнителю (наличными или переводом Kaspi) только после того, как работа полностью выполнена и вы довольны результатом.</p>
+                <div class="glass-card p-6 rounded-2xl">
+                    <h4 class="font-bold text-lg mb-2 text-white">Как происходит оплата?</h4>
+                    <p class="text-gray-400 text-sm font-medium">Оплата производится напрямую исполнителю (наличными или переводом Kaspi) только после того, как работа полностью выполнена и вы довольны результатом.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Футер -->
-    <footer class="bg-gray-900 text-gray-400 py-12">
+    <footer class="bg-black/60 border-t border-white/10 py-12 relative z-10 backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="text-2xl font-extrabold tracking-tight text-white mb-4">Помощник<span class="text-blue-500">.kz</span></div>
-            <p class="mb-6 font-medium text-sm">Сервис решения бытовых проблем в Астане.</p>
-            <p class="text-xs text-gray-600">© 2026 Помощник.kz. Все права защищены. Сервис несет информационный характер.</p>
-            <a href="offer.html" target="_blank" style="color: gray; font-size: 12px; text-decoration: underline;">Публичная оферта и правила сервиса</a>
+            <div class="text-2xl font-extrabold tracking-tight text-white mb-4">Помощник<span class="text-indigo-400">.kz</span></div>
+            <p class="mb-6 font-medium text-sm text-gray-400">Сервис решения бытовых проблем в Астане.</p>
+            <p class="text-xs text-gray-500 mb-2">© 2026 Помощник.kz. Все права защищены. Сервис несет информационный характер.</p>
+            <a href="offer.html" target="_blank" class="text-xs text-indigo-300 hover:text-indigo-200 underline transition-colors">Публичная оферта и правила сервиса</a>
         </div>
     </footer>
 
-    <!-- Плавающая кнопка для мобилок (теперь это единственная кнопка на телефонах) -->
     <div class="fixed bottom-6 left-0 right-0 px-4 sm:hidden z-40 pointer-events-none flex justify-center">
-        <a href="#order-section" class="pointer-events-auto w-full max-w-sm bg-blue-600 text-white text-center font-bold py-3 rounded-full shadow-xl border border-blue-500 shadow-blue-900/20 active:bg-blue-700 transition-colors">
+        <a href="#order-section" class="pointer-events-auto w-full max-w-sm bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-center font-bold py-4 rounded-full shadow-lg shadow-indigo-500/40 border border-white/20 active:from-indigo-600 active:to-purple-700 transition-colors">
             Оставить заявку
         </a>
     </div>
 
-    <!-- JS Логика Telegram-бота -->
     <script>
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();

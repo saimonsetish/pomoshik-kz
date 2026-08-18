@@ -7,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
+        body {
+            font-family: 'Inter', sans-serif;
             background-color: #0b0f19;
             background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
             background-size: cover;
@@ -39,11 +39,11 @@
         }
 
         /* Стеклянные карточки */
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(16px); 
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
         }
@@ -66,22 +66,22 @@
             box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2);
         }
         .glass-input::placeholder { color: #64748b; }
-        
+
         select option { background-color: #1e293b; color: white; }
 
         /* Градиентный текст */
-        .gradient-text { 
-            background: linear-gradient(135deg, #a5b4fc, #c084fc, #93c5fd); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
+        .gradient-text {
+            background: linear-gradient(135deg, #a5b4fc, #c084fc, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             background-size: 200% auto;
             animation: textShine 3s linear infinite;
         }
         @keyframes textShine { to { background-position: 200% center; } }
 
-        .video-container { 
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; 
-            border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); 
+        .video-container {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
@@ -106,6 +106,23 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
+
+        /* Якоря должны останавливаться НИЖЕ фиксированного навбара,
+           иначе заголовок формы прячется под ним на мобильных */
+        #how-it-works, #order-section {
+            scroll-margin-top: 84px;
+        }
+
+        /* Плавающая кнопка на мобильных: компактная, плавно скрывается
+           когда видна форма заявки или футер (чтобы не закрывать оферту) */
+        #floatingCta {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        #floatingCta.cta-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-indigo-500/30">
@@ -153,7 +170,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="relative w-full max-w-lg mx-auto lg:max-w-none reveal active delay-100">
                     <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/Wx6eYu65gsY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -169,7 +186,7 @@
                 <h2 class="text-3xl font-extrabold text-white mb-4">Как работает Помощник.kz</h2>
                 <p class="text-lg text-indigo-200 font-medium">Решаем ваши задачи в 3 простых шага</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="glass-card text-center p-6 rounded-3xl reveal hover:-translate-y-2">
                     <div class="w-14 h-14 bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-6">1</div>
@@ -196,7 +213,7 @@
                 <h2 class="text-3xl font-extrabold text-white mb-4">С чем мы помогаем каждый день</h2>
                 <p class="text-lg text-indigo-200 font-medium">Если вашей задачи нет в списке — просто напишите нам!</p>
             </div>
-            
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="glass-card p-6 rounded-3xl hover:-translate-y-2 reveal">
                     <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-4 border border-indigo-500/30">
@@ -293,8 +310,8 @@
     <section id="order-section" class="py-16 relative z-10 border-t border-white/5">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                
-                <div class="lg:col-span-5 space-y-8 sticky top-24 reveal">
+
+                <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-24 reveal">
                     <div>
                         <h2 class="text-3xl font-extrabold text-white mb-4 leading-tight">Ваша безопасность — наш приоритет</h2>
                         <p class="text-gray-400 font-medium">Мы не передаем ваш номер первому встречному. Мы строим сервис, которому можно доверить ключи от квартиры.</p>
@@ -328,7 +345,7 @@
                 <div class="lg:col-span-7 reveal delay-100">
                     <div class="glass-card rounded-3xl p-6 sm:p-8 border-t border-l border-white/20">
                         <h2 class="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-4">Оформить заявку (1 минута)</h2>
-                        
+
                         <form id="orderForm" class="space-y-5">
                             <div>
                                 <label class="block text-sm font-bold text-indigo-200 mb-2">Категория задачи</label>
@@ -400,10 +417,10 @@
                                 </label>
                             </div>
 
-                            <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-extrabold text-lg py-4.5 px-4 rounded-xl shadow-lg shadow-indigo-500/30 transition-all transform hover:-translate-y-1 mt-4 border border-white/10">
+                            <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-extrabold text-lg py-4 px-4 rounded-xl shadow-lg shadow-indigo-500/30 transition-all transform hover:-translate-y-1 mt-4 border border-white/10">
                                 Найти мастера
                             </button>
-                            
+
                             <div id="successMessage" class="hidden bg-green-500/20 border border-green-500/50 text-green-300 rounded-xl p-4 text-center text-sm font-bold mt-4 shadow-sm backdrop-blur-sm">
                                 ✅ Заявка отправлена! Ожидайте сообщение в WhatsApp.
                             </div>
@@ -415,8 +432,8 @@
         </div>
     </section>
 
-    <footer class="bg-black/80 border-t border-white/10 py-12 relative z-10 backdrop-blur-xl">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <footer id="siteFooter" class="bg-black/80 border-t border-white/10 py-12 relative z-10 backdrop-blur-xl">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-16 sm:pb-0">
             <div class="text-2xl font-extrabold tracking-tight text-white mb-4">Помощник<span class="text-indigo-400">.kz</span></div>
             <p class="mb-6 font-medium text-sm text-gray-400">Сервис решения бытовых проблем в Астане.</p>
             <p class="text-xs text-gray-500 mb-2">© 2026 Помощник.kz. Все права защищены.</p>
@@ -424,38 +441,53 @@
         </div>
     </footer>
 
-    <div class="fixed bottom-6 left-0 right-0 px-4 sm:hidden z-40 pointer-events-none flex justify-center">
-        <a href="#order-section" class="pointer-events-auto w-full max-w-sm bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-center font-bold py-4 rounded-2xl shadow-xl shadow-indigo-500/50 border border-white/20 active:scale-95 transition-transform">
+    <!-- Компактная плавающая кнопка на мобильных.
+         Скрывается, когда пользователь долистал до формы заявки или футера,
+         чтобы не закрывать поле ввода и ссылку на оферту -->
+    <div id="floatingCta" class="fixed bottom-4 left-0 right-0 sm:hidden z-40 pointer-events-none flex justify-center">
+        <a href="#order-section" class="pointer-events-auto inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-bold py-3 px-6 rounded-full shadow-lg shadow-indigo-500/40 border border-white/20 active:scale-95 transition-transform">
             Оставить заявку
         </a>
     </div>
 
     <script>
-        // Анимация при скролле
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
+        // Показ блоков при появлении во вьюпорте (надёжнее, чем ручной расчёт на scroll:
+        // срабатывает сразу, если элемент уже виден после перехода по якорю)
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
                 }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal(); // Запуск при загрузке
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Плавающая кнопка "Оставить заявку": прячем, когда видна форма заявки
+        // или футер — чтобы кнопка не перекрывала поля формы и ссылку на оферту
+        const floatingCta = document.getElementById('floatingCta');
+        const orderSection = document.getElementById('order-section');
+        const siteFooter = document.getElementById('siteFooter');
+
+        const ctaVisibility = new IntersectionObserver((entries) => {
+            const shouldHide = entries.some(entry => entry.isIntersecting);
+            floatingCta.classList.toggle('cta-hidden', shouldHide);
+        }, { threshold: 0.05 });
+
+        ctaVisibility.observe(orderSection);
+        ctaVisibility.observe(siteFooter);
 
         // Логика отправки заявки
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
             const submitBtn = document.getElementById('submitBtn');
             const successMsg = document.getElementById('successMessage');
-            
-            const BOT_TOKEN = '8612143514:AAFQ5DruImQi8__Z1bvP8nypQfsZVW79x_M'; 
+
+            const BOT_TOKEN = '8612143514:AAFQ5DruImQi8__Z1bvP8nypQfsZVW79x_M';
             const CHAT_ID = '-5116920310';
-            
+
             submitBtn.disabled = true;
             submitBtn.innerHTML = 'Отправка... ⏳';
             submitBtn.classList.add('opacity-75', 'cursor-not-allowed');

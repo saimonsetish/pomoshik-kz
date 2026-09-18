@@ -152,7 +152,7 @@
                 <div class="text-center lg:text-left reveal active">
                     <div class="inline-flex items-center bg-white/5 border border-white/10 text-indigo-200 text-sm font-bold px-4 py-1.5 rounded-full mb-6 backdrop-blur-md">
                         <div class="pulse"></div>
-                        14 мастеров онлайн в Астане
+                        Работаем в Астане
                     </div>
 
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight text-white leading-tight">
@@ -258,50 +258,6 @@
                         <li>• Перестановка мебели</li>
                         <li>• Упаковка вещей</li>
                     </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 relative z-10 border-t border-white/5">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 reveal">
-                <h2 class="text-3xl font-extrabold text-white mb-4">Нам уже доверяют</h2>
-                <p class="text-lg text-gray-400 font-medium">Первые отзывы клиентов Помощник.kz</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-card p-6 rounded-3xl reveal">
-                    <div class="text-yellow-400 text-lg mb-3">★★★★★</div>
-                    <p class="text-gray-300 text-sm mb-4 italic">«Лопнула труба в ванной поздно вечером. Оставила заявку, через 10 минут диспетчер уже дал номер мастера. Приехал быстро, всё починил. Очень удобно, что не надо самой никого искать!»</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center font-bold text-white">А</div>
-                        <div>
-                            <p class="font-bold text-white text-sm">Айгерим</p>
-                            <p class="text-xs text-gray-500">Услуга: Сантехника</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="glass-card p-6 rounded-3xl reveal delay-100">
-                    <div class="text-yellow-400 text-lg mb-3">★★★★★</div>
-                    <p class="text-gray-300 text-sm mb-4 italic">«Заказал сборку огромного шкафа из Икеи. Мастер приехал с профессиональным инструментом, собрал за час. Отдал деньги только после проверки. Сервис топ.»</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center font-bold text-white">Д</div>
-                        <div>
-                            <p class="font-bold text-white text-sm">Данияр</p>
-                            <p class="text-xs text-gray-500">Услуга: Сборка мебели</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="glass-card p-6 rounded-3xl reveal delay-200">
-                    <div class="text-yellow-400 text-lg mb-3">★★★★★</div>
-                    <p class="text-gray-300 text-sm mb-4 italic">«Сел аккумулятор на трассе, холодно. Написал сюда, через 15 минут подъехал парень с проводами, прикурил. Спасибо за оперативность!»</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center font-bold text-white">Р</div>
-                        <div>
-                            <p class="font-bold text-white text-sm">Руслан</p>
-                            <p class="text-xs text-gray-500">Услуга: Автопомощь</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -485,33 +441,31 @@
             const submitBtn = document.getElementById('submitBtn');
             const successMsg = document.getElementById('successMessage');
 
-            const BOT_TOKEN = '8612143514:AAFQ5DruImQi8__Z1bvP8nypQfsZVW79x_M';
-            const CHAT_ID = '-5116920310';
+            // ВАЖНО: токен бота больше не хранится здесь. Заявка уходит на
+            // Cloudflare Worker, который сам обращается к Telegram API,
+            // используя токен, сохранённый как секретная переменная окружения.
+            // Замените URL ниже на адрес вашего задеплоенного Worker'а
+            // (см. telegram-proxy-worker.js).
+            const PROXY_URL = 'https://pomoshnik.adilzharas505.workers.dev/';
 
             submitBtn.disabled = true;
             submitBtn.innerHTML = 'Отправка... ⏳';
             submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
 
-            const text = `
-🚨 <b>НОВАЯ ЗАЯВКА С САЙТА!</b>
-
-📂 <b>Категория:</b> ${document.getElementById('category').value}
-📝 <b>Что нужно:</b> ${document.getElementById('description').value}
-📍 <b>Адрес:</b> ${document.getElementById('address').value}
-⏰ <b>Когда:</b> ${document.getElementById('datetime').value}
-💰 <b>Бюджет:</b> ${document.getElementById('budget').value || 'Не указан'}
-📞 <b>WhatsApp:</b> ${document.getElementById('phone').value}
-            `;
+            const payload = {
+                category: document.getElementById('category').value,
+                description: document.getElementById('description').value,
+                address: document.getElementById('address').value,
+                datetime: document.getElementById('datetime').value,
+                budget: document.getElementById('budget').value,
+                phone: document.getElementById('phone').value
+            };
 
             try {
-                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                const response = await fetch(PROXY_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: text,
-                        parse_mode: 'HTML'
-                    })
+                    body: JSON.stringify(payload)
                 });
 
                 if (response.ok) {

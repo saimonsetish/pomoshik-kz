@@ -372,3 +372,17 @@ footer { border-top: 1px solid #26272e; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Contact controls: labels instead of displaying the personal phone number. */
+.header-info { margin-left: auto; padding-left: 20px; border-left: 1px solid #ffffff20; white-space: nowrap; font-size: 13px; line-height: 1.5; }
+.header-info span { display: block; color: #eeeef2; }
+.header-info small { color: #a6a6b1; font-size: 11px; }
+.whatsapp-icon { display: inline-block; width: 22px; height: 22px; flex: 0 0 22px; background: currentColor; mask: url('assets/icons/whatsapp.svg') center / contain no-repeat; -webkit-mask: url('assets/icons/whatsapp.svg') center / contain no-repeat; }
+.contact-call { display: inline-block; margin-top: 18px; font-size: 13px; text-underline-offset: 4px; }
+@media (max-width: 850px) { .header-info { display: none; } }
+@media (max-width: 640px) {
+  .footer-contact { display: none; }
+  .mobile-contact { grid-template-columns: 1fr 1fr; }
+  .mobile-contact a { display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .mobile-contact a:first-child { background: #23242b; color: #ededf2; border-color: #33343d; }
+}

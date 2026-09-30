@@ -6,7 +6,7 @@ const menuToggle = document.querySelector('.menu-toggle');
 const mainNav = document.getElementById('main-nav');
 if (menuToggle && mainNav) {
   const mobileViewport = matchMedia('(max-width: 850px)');
-  const outsideMenu = document.querySelectorAll('main, footer, .mobile-contact, .site-header .brand, .header-phone');
+  const outsideMenu = document.querySelectorAll('main, footer, .mobile-contact, .site-header .brand, .header-info');
   function setMenu(open, returnFocus = false) {
     const expanded = open && mobileViewport.matches;
     document.body.classList.toggle('menu-open', expanded);
@@ -122,10 +122,10 @@ form.addEventListener('submit', async event => {
     accepted = true;
     // A 2xx only confirms acceptance by the endpoint, not a master's assignment
     // or delivery by Telegram. Do not promise either at this point.
-    showStatus('Сервис приёма принял заявку. Мы свяжемся по указанному номеру, чтобы уточнить детали. Исполнитель пока не назначен. Если нужно уточнить статус, позвоните +7 707 547 21 57.');
+    showStatus('Сервис приёма принял заявку. Мы свяжемся по указанному номеру, чтобы уточнить детали. Исполнитель пока не назначен. Если нужно уточнить статус, свяжитесь с нами в WhatsApp.');
     newOrderButton.hidden = false;
   } catch (error) {
-    showStatus('Не удалось подтвердить приём заявки. Текст сохранён в форме. Возможно, она уже дошла: перед повторной отправкой уточните по телефону +7 707 547 21 57 или в WhatsApp.', true);
+    showStatus('Не удалось подтвердить приём заявки. Текст сохранён в форме. Возможно, она уже дошла: перед повторной отправкой уточните в WhatsApp.', true);
   } finally {
     clearTimeout(timeout);
     pending = false;

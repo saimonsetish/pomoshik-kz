@@ -55,7 +55,7 @@ const server = http.createServer((req, res) => {
     assert.equal(await page.locator('#address').getAttribute('required'), null);
     assert.equal(await page.locator('#privacy').isChecked(), false);
     const phones = await page.locator('a[href^="tel:"]').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href')));
-    assert(phones.length >= 4 && phones.every(x => x === 'tel:+77075472157'));
+    assert(phones.length >= 2 && phones.every(x => x === 'tel:+77075472157'));
     const links = await page.locator('a[href^="https://wa.me/"]').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href')));
     assert(links.length >= 3 && links.every(x => x.startsWith('https://wa.me/77075472157')));
     assert.equal(requests.length, 0);
@@ -188,7 +188,7 @@ const server = http.createServer((req, res) => {
     const staticPage = await noJS.newPage(); await staticPage.goto(base);
     assert(await staticPage.locator('#orderForm noscript').isVisible());
     assert(await staticPage.locator('#videoShell noscript a').isVisible());
-    assert(await staticPage.locator('.contact-number').isVisible());
+    assert(await staticPage.locator('.contact-call').isVisible());
     assert(await staticPage.locator('#submitBtn').isDisabled());
     results.push('320/360/390/768/1024/1440 layouts have no horizontal overflow; illustration loads; legal pages and contacts work without JS.');
     assert.deepEqual(errors, []);

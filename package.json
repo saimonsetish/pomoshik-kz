@@ -1,0 +1,7 @@
+{
+  "name": "pomoshik-kz",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": { "test": "node tests/site.cjs", "check": "node --check app.js" },
+  "devDependencies": { "playwright": "1.62.1" }
+}

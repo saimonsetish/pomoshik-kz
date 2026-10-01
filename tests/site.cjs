@@ -59,6 +59,7 @@ const server = http.createServer((req, res) => {
     const links = await page.locator('a[href^="https://wa.me/"]').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href')));
     assert(links.length >= 3 && links.every(x => x.startsWith('https://wa.me/77075472157')));
     assert.equal(requests.length, 0);
+    assert.equal(await page.evaluate(() => typeof window.ym), 'undefined');
     results.push('Contacts correct; no external resources; address optional; consent initially unchecked.');
     if (!process.env.KOMEK_SKIP_VIDEO) {
     assert.equal(await page.locator('#videoShell iframe').count(), 0);
@@ -192,6 +193,8 @@ const server = http.createServer((req, res) => {
     assert(await staticPage.locator('#submitBtn').isDisabled());
     results.push('320/360/390/768/1024/1440 layouts have no horizontal overflow; illustration loads; legal pages and contacts work without JS.');
     assert.deepEqual(errors, []);
+    await require('./analytics.cjs')(browser, root);
+    results.push('Metrika: production-only, one init, contact goals and 2xx-only form goal without personal fields; blocked or broken tracker cannot break the form.');
     results.push('No uncaught browser errors. All outbound requests mocked; no real lead sent.');
     fs.writeFileSync(path.join(qa,'results.json'), JSON.stringify({passed:true,results,mockedRequests:requests.length}, null, 2));
     console.log(JSON.stringify({passed:true,results},null,2));

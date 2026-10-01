@@ -120,6 +120,7 @@ form.addEventListener('submit', async event => {
     });
     if (!response.ok) throw new Error('Request not accepted');
     accepted = true;
+    window.komekAnalytics?.reachGoal('order_received');
     // A 2xx only confirms acceptance by the endpoint, not a master's assignment
     // or delivery by Telegram. Do not promise either at this point.
     showStatus('Сервис приёма принял заявку. Мы свяжемся по указанному номеру, чтобы уточнить детали. Исполнитель пока не назначен. Если нужно уточнить статус, свяжитесь с нами в WhatsApp.');
